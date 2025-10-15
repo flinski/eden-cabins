@@ -101,15 +101,15 @@
 	--color-accent-900: oklch(0.38 0.07 169);
 	--color-accent-950: oklch(0.26 0.05 173);
 
-	--text-h1: 2.986rem;
-	--text-h2: 2.488rem;
-	--text-h3: 2.074rem;
-	--text-h4: 1.728rem;
-	--text-h5: 1.44rem;
-	--text-h6: 1.2rem;
+	--text-h1: 2.027rem;
+	--text-h2: 1.802rem;
+	--text-h3: 1.602rem;
+	--text-h4: 1.424rem;
+	--text-h5: 1.266rem;
+	--text-h6: 1.125rem;
 	--text-p: 1rem;
-	--text-small: 0.833rem;
-	--text-tiny: 0.694rem;
+	--text-small: 0.889rem;
+	--text-tiny: 0.79rem;
 
 	--leading-heading: 1.15;
 	--leading-text: 1.5;
