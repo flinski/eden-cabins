@@ -78,16 +78,16 @@
 	--font-inter: 'Inter', sans-serif;
 
 	--color-ui-50: oklch(0.99 0 0);
-	--color-ui-100: oklch(0.97 0 0);
-	--color-ui-200: oklch(0.92 0 0);
-	--color-ui-300: oklch(0.87 0 0);
-	--color-ui-400: oklch(0.72 0 0);
-	--color-ui-500: oklch(0.56 0 0);
-	--color-ui-600: oklch(0.44 0 0);
-	--color-ui-700: oklch(0.37 0 0);
-	--color-ui-800: oklch(0.27 0 0);
-	--color-ui-900: oklch(0.2 0 0);
-	--color-ui-950: oklch(0.14 0 0);
+	--color-ui-100: oklch(0.97 0 286);
+	--color-ui-200: oklch(0.92 0 286);
+	--color-ui-300: oklch(0.87 0.01 286);
+	--color-ui-400: oklch(0.71 0.01 286);
+	--color-ui-500: oklch(0.55 0.01 286);
+	--color-ui-600: oklch(0.44 0.01 286);
+	--color-ui-700: oklch(0.37 0.01 286);
+	--color-ui-800: oklch(0.27 0.01 286);
+	--color-ui-900: oklch(0.21 0.01 286);
+	--color-ui-950: oklch(0.14 0 286);
 
 	--color-accent-50: oklch(0.98 0.02 166);
 	--color-accent-100: oklch(0.95 0.05 163);
