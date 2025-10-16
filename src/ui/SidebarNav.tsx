@@ -23,7 +23,7 @@ export default function SidebarNav() {
 								to={link.path}
 								className={({ isActive }) =>
 									cn(
-										'hover:bg-ui-100 text-ui-600 hover:text-ui-950 flex h-9 items-center gap-1 rounded-md px-3',
+										'hover:bg-ui-100 text-ui-600 hover:text-ui-950 flex h-9 items-center gap-2 rounded-md px-3',
 										isActive &&
 											'text-accent-700 bg-accent-100 hover:text-accent-700 hover:bg-accent-100'
 									)
