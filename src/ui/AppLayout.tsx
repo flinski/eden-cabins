@@ -9,7 +9,9 @@ export default function AppLayout() {
 			<Header />
 			<Sidebar />
 			<main className="bg-ui-100 overflow-auto px-11 py-10">
-				<Outlet />
+				<div className="mx-auto max-w-[90rem]">
+					<Outlet />
+				</div>
 			</main>
 		</div>
 	)

@@ -1,12 +1,12 @@
 import { NavLink } from 'react-router'
-import { CalendarDays, House, Settings, SquareUser, Store } from 'lucide-react'
+import { CalendarDays, House, Settings, Store, Users } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 const links = [
 	{ text: 'Dashboard', icon: House, path: '/dashboard' },
 	{ text: 'Bookings', icon: CalendarDays, path: '/bookings' },
 	{ text: 'Cabins', icon: Store, path: '/cabins' },
-	{ text: 'Users', icon: SquareUser, path: '/users' },
+	{ text: 'Users', icon: Users, path: '/users' },
 	{ text: 'Settings', icon: Settings, path: '/settings' },
 ]
 

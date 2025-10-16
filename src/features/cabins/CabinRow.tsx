@@ -1,12 +1,29 @@
-import type { Cabin } from '@/services/apiCabins'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { deleteCabin, type Cabin } from '@/services/apiCabins'
 import { formatCurrency } from '@/lib/utils'
+import toast from 'react-hot-toast'
 
 type CabinRowProps = {
 	cabin: Cabin
 }
 
 export default function CabinRow({ cabin }: CabinRowProps) {
-	const { image, description, name, maxCapacity, regularPrice, discount } = cabin
+	const { id, image, description, name, maxCapacity, regularPrice, discount } = cabin
+
+	const queryClient = useQueryClient()
+	const { isPending, mutate } = useMutation({
+		mutationFn: deleteCabin,
+		onSuccess: () => {
+			toast.success('Cabin successfully deleted')
+			queryClient.invalidateQueries({
+				queryKey: ['cabins'],
+			})
+		},
+		onError: (error) => {
+			console.error(error.message)
+			toast.error(error.message)
+		},
+	})
 
 	return (
 		<div className="not-last:border-b-ui-200 grid grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr] items-center gap-6 p-2 not-last:border-b">
@@ -17,7 +34,11 @@ export default function CabinRow({ cabin }: CabinRowProps) {
 			<div>{maxCapacity} guests</div>
 			<div className="font-semibold">{formatCurrency(regularPrice)}</div>
 			<div className="text-accent-600 font-semibold">{formatCurrency(discount)}</div>
-			<button className="bg-ui-200 cursor-pointer rounded-sm py-1 font-semibold hover:bg-red-100 hover:text-red-600">
+			<button
+				onClick={() => mutate(id)}
+				disabled={isPending}
+				className="bg-ui-200 cursor-pointer rounded-sm py-1 font-semibold hover:bg-red-100 hover:text-red-600 disabled:opacity-50"
+			>
 				Delete
 			</button>
 		</div>
