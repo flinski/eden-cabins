@@ -11,12 +11,34 @@ export type Cabin = {
 	image: string
 }
 
+export type NewCabin = {
+	name: string
+	maxCapacity: number
+	regularPrice: number
+	discount: number
+	description: string
+	// image: File | string
+}
+
 export async function getCabins() {
 	const { data, error } = await supabase.from('cabins').select('*')
 
 	if (error) {
 		console.log(error.message)
 		throw new Error('Cabins could not be loaded')
+	}
+
+	const cabins: Cabin[] = data
+
+	return cabins
+}
+
+export async function createCabin(newCabin: NewCabin) {
+	const { data, error } = await supabase.from('cabins').insert([newCabin]).select()
+
+	if (error) {
+		console.log(error.message)
+		throw new Error('Cabin could not be created')
 	}
 
 	const cabins: Cabin[] = data
