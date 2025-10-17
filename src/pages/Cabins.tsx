@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import CabinTable from '@/features/cabins/CabinTable'
-import CreateCabinTable from '@/features/cabins/CreateCabinTable'
+import CreateCabinForm from '@/features/cabins/CreateCabinForm'
 
 export default function Cabins() {
 	const [showForm, setShowForm] = useState(false)
@@ -19,7 +19,7 @@ export default function Cabins() {
 				>
 					Add new cabin
 				</button>
-				{showForm && <CreateCabinTable />}
+				{showForm && <CreateCabinForm />}
 			</div>
 		</>
 	)
