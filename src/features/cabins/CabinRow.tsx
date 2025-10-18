@@ -1,9 +1,11 @@
 import { useState } from 'react'
+import { Copy, SquarePen, Trash2 } from 'lucide-react'
 
 import { type Cabin } from '@/services/apiCabins'
 import { formatCurrency } from '@/lib/utils'
 import { useDeleteCabin } from '@/features/cabins/useDeleteCabin'
 import CreateCabinForm from '@/features/cabins/CreateCabinForm'
+import { useCreateCabin } from '@/features/cabins/useCreateCabin'
 
 type CabinRowProps = {
 	cabin: Cabin
@@ -11,9 +13,22 @@ type CabinRowProps = {
 
 export default function CabinRow({ cabin }: CabinRowProps) {
 	const [showForm, setShowForm] = useState(false)
+	const { isCreating, createCabin } = useCreateCabin()
 	const { isDeleting, deleteCabin } = useDeleteCabin()
+	const isCreatingOrDeleting = isCreating || isDeleting
 
 	const { id, image, description, name, maxCapacity, regularPrice, discount } = cabin
+
+	const handleDuplicate = () => {
+		createCabin({
+			name: `Copy of ${name}`,
+			maxCapacity,
+			regularPrice,
+			discount,
+			image,
+			description,
+		})
+	}
 
 	return (
 		<>
@@ -29,20 +44,27 @@ export default function CabinRow({ cabin }: CabinRowProps) {
 				) : (
 					'–'
 				)}
-				<div>
+				<div className="flex items-center justify-center gap-1">
+					<button
+						onClick={handleDuplicate}
+						disabled={isCreatingOrDeleting}
+						className="bg-ui-100 cursor-pointer rounded-sm p-2 font-semibold hover:bg-blue-100 hover:text-blue-600 disabled:opacity-50"
+					>
+						<Copy size={16} />
+					</button>
 					<button
 						onClick={() => setShowForm(!showForm)}
-						disabled={isDeleting}
-						className="bg-ui-200 cursor-pointer rounded-sm px-3 py-1 font-semibold hover:bg-amber-100 hover:text-amber-600 disabled:opacity-50"
+						disabled={isCreatingOrDeleting}
+						className="bg-ui-100 cursor-pointer rounded-sm p-2 font-semibold hover:bg-amber-100 hover:text-amber-600 disabled:opacity-50"
 					>
-						Edit
+						<SquarePen size={16} />
 					</button>
 					<button
 						onClick={() => deleteCabin(id)}
-						disabled={isDeleting}
-						className="bg-ui-200 cursor-pointer rounded-sm px-3 py-1 font-semibold hover:bg-red-100 hover:text-red-600 disabled:opacity-50"
+						disabled={isCreatingOrDeleting}
+						className="bg-ui-100 cursor-pointer rounded-sm p-2 font-semibold hover:bg-red-100 hover:text-red-600 disabled:opacity-50"
 					>
-						Delete
+						<Trash2 size={16} />
 					</button>
 				</div>
 			</div>
