@@ -14,8 +14,8 @@ export function useDeleteCabin() {
 			})
 		},
 		onError: (error) => {
-			console.error(error.message)
 			toast.error(error.message)
+			console.error(error.message)
 		},
 	})
 
