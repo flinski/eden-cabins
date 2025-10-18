@@ -1,13 +1,11 @@
-import { useQuery } from '@tanstack/react-query'
-import { getCabins } from '@/services/apiCabins'
-
 import CabinRow from '@/features/cabins/CabinRow'
 import Spinner from '@/ui/Spinner'
+import { useCabins } from './useCabins'
 
 export default function CabinTable() {
-	const { isPending, error, data: cabins } = useQuery({ queryKey: ['cabins'], queryFn: getCabins })
+	const { isLoading, error, cabins } = useCabins()
 
-	if (isPending) {
+	if (isLoading) {
 		return (
 			<div className="flex items-center justify-center">
 				<Spinner />
@@ -30,7 +28,7 @@ export default function CabinTable() {
 				<div>Discount</div>
 				<div></div>
 			</header>
-			{cabins.map((cabin) => (
+			{cabins?.map((cabin) => (
 				<CabinRow key={cabin.id} cabin={cabin} />
 			))}
 		</div>
