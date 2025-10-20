@@ -21,9 +21,10 @@ export type CabinData = {
 
 type CreateCabinFormProps = {
 	cabinToEdit?: Cabin
+	onCloseModal?: () => void
 }
 
-export default function CreateCabinForm({ cabinToEdit }: CreateCabinFormProps) {
+export default function CreateCabinForm({ cabinToEdit, onCloseModal }: CreateCabinFormProps) {
 	const isEditSession = Boolean(cabinToEdit)
 	const cabinData = isEditSession ? cabinToCabinData(cabinToEdit as Cabin) : null
 
@@ -46,6 +47,7 @@ export default function CreateCabinForm({ cabinToEdit }: CreateCabinFormProps) {
 				{
 					onSuccess: () => {
 						reset()
+						onCloseModal?.()
 					},
 				}
 			)
@@ -53,6 +55,7 @@ export default function CreateCabinForm({ cabinToEdit }: CreateCabinFormProps) {
 			createCabin(newCabin, {
 				onSuccess: () => {
 					reset()
+					onCloseModal?.()
 				},
 			})
 		}
@@ -61,7 +64,7 @@ export default function CreateCabinForm({ cabinToEdit }: CreateCabinFormProps) {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="bg-ui-50 border-ui-200 flex flex-col rounded-lg border px-8 py-4"
+			className="bg-ui-50 font-inter flex flex-col rounded-lg px-8 py-4 font-medium"
 		>
 			<FormRow id="name" label="Cabin name" errors={errors}>
 				<Input
@@ -149,6 +152,7 @@ export default function CreateCabinForm({ cabinToEdit }: CreateCabinFormProps) {
 				<button
 					type="reset"
 					disabled={isCreatingOrEditing}
+					onClick={() => onCloseModal?.()}
 					className="bg-ui-200 cursor-pointer rounded-md px-3 py-2 disabled:cursor-default disabled:opacity-50"
 				>
 					Cancel
