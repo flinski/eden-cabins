@@ -1,6 +1,7 @@
 import { cloneElement, createContext, useContext, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { X } from 'lucide-react'
+import { useOutsideClick } from '@/hooks/useOutsideClick'
 
 type ModalValue = {
 	openName: string
@@ -51,6 +52,7 @@ type WindowProps = {
 
 function Window({ children, name }: WindowProps) {
 	const { openName, close } = useModal()
+	const windowRef = useOutsideClick(close)
 
 	if (name !== openName) {
 		return null
@@ -58,7 +60,10 @@ function Window({ children, name }: WindowProps) {
 
 	return createPortal(
 		<div className="bg-ui-950/10 fixed top-0 left-0 h-screen w-full backdrop-blur-sm">
-			<div className="bg-ui-50 border-ui-200 fixed top-[50%] left-[50%] translate-[-50%] rounded-lg border p-2 shadow-xl">
+			<div
+				ref={windowRef}
+				className="bg-ui-50 border-ui-200 fixed top-[50%] left-[50%] translate-[-50%] rounded-lg border p-2 shadow-xl"
+			>
 				<button
 					onClick={close}
 					className="text-ui-950 absolute top-2 right-2 inline-flex cursor-pointer items-center justify-center p-2"
