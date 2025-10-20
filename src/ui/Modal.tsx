@@ -52,7 +52,7 @@ type WindowProps = {
 
 function Window({ children, name }: WindowProps) {
 	const { openName, close } = useModal()
-	const windowRef = useOutsideClick(close)
+	const windowRef = useOutsideClick<HTMLDivElement>(close)
 
 	if (name !== openName) {
 		return null
