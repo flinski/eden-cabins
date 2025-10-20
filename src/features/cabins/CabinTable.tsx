@@ -1,6 +1,7 @@
 import CabinRow from '@/features/cabins/CabinRow'
+import { useCabins } from '@/features/cabins/useCabins'
 import Spinner from '@/ui/Spinner'
-import { useCabins } from './useCabins'
+import Table from '@/ui/Table'
 
 export default function CabinTable() {
 	const { isLoading, error, cabins } = useCabins()
@@ -19,18 +20,18 @@ export default function CabinTable() {
 	}
 
 	return (
-		<div className="bg-ui-50 border-ui-200 rounded-lg border">
-			<header className="text-ui-700 border-ui-200 grid grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr] items-center gap-6 border-b px-2 py-4 font-semibold uppercase">
+		<Table columns="grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr]">
+			<Table.Header>
 				<div></div>
 				<div>Cabin</div>
 				<div>Capacity</div>
 				<div>Price</div>
 				<div>Discount</div>
 				<div></div>
-			</header>
-			{cabins?.map((cabin) => (
-				<CabinRow key={cabin.id} cabin={cabin} />
-			))}
-		</div>
+			</Table.Header>
+			{cabins && (
+				<Table.Body data={cabins} render={(cabin) => <CabinRow key={cabin.id} cabin={cabin} />} />
+			)}
+		</Table>
 	)
 }
