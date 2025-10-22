@@ -1,3 +1,4 @@
+import type { OperationsOption } from '@/features/cabins/CabinTableOperations'
 import { cn } from '@/lib/utils'
 import { useSearchParams } from 'react-router'
 
@@ -12,7 +13,7 @@ function FilterButton({ children, className, active, ...props }: FilterButtonPro
 		<button
 			{...props}
 			className={cn(
-				'hover:bg-accent-600 hover:text-ui-50 inline-flex cursor-pointer items-center justify-center rounded-md px-2 py-1',
+				'hover:bg-accent-600 hover:text-ui-50 inline-flex cursor-pointer items-center justify-center rounded-md px-2 py-1 disabled:cursor-default',
 				active && 'bg-accent-600 text-ui-50',
 				className
 			)}
@@ -22,14 +23,9 @@ function FilterButton({ children, className, active, ...props }: FilterButtonPro
 	)
 }
 
-type FilterOption = {
-	value: string
-	label: string
-}
-
 type FilterProps = {
 	filterField: string
-	options: FilterOption[]
+	options: OperationsOption[]
 }
 
 export default function Filter({ filterField, options }: FilterProps) {
@@ -47,6 +43,7 @@ export default function Filter({ filterField, options }: FilterProps) {
 				<FilterButton
 					key={option.value}
 					active={option.value === currentFilter}
+					disabled={option.value === currentFilter}
 					onClick={() => handleClick(option.value)}
 				>
 					{option.label}

@@ -34,6 +34,12 @@ export default function CabinTable() {
 	const filterValue = (searchParams.get('discount') ?? 'all') as DiscountFilter
 	const filteredCabins = cabins?.filter(filterMap[filterValue])
 
+	const sortBy = searchParams.get('sortBy') || 'startDate-asc'
+	const [field, direction] = sortBy.split('-')
+	const modifier = direction === 'asc' ? 1 : -1
+	// @ts-expect-error no error
+	const sortedCabins = filteredCabins?.sort((a, b) => (a[field] - b[field]) * modifier)
+
 	return (
 		<Menus>
 			<Table columns="grid-cols-[0.6fr_1.8fr_2.2fr_1fr_1fr_1fr]">
@@ -45,9 +51,9 @@ export default function CabinTable() {
 					<div>Discount</div>
 					<div></div>
 				</Table.Header>
-				{filteredCabins && (
+				{sortedCabins && (
 					<Table.Body
-						data={filteredCabins}
+						data={sortedCabins}
 						render={(cabin) => <CabinRow key={cabin.id} cabin={cabin} />}
 					/>
 				)}
