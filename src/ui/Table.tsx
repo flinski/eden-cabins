@@ -80,7 +80,7 @@ type BodyProps = {
 
 function Body({ data, render }: BodyProps) {
 	if (data?.length === 0) {
-		return <p>No data to show at the moment</p>
+		return <p className="px-4 py-3 text-center">No data to show at the moment</p>
 	}
 
 	return <section>{data.map(render)}</section>

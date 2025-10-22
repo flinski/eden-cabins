@@ -45,7 +45,7 @@ export default function CabinRow({ cabin }: CabinRowProps) {
 			) : (
 				'–'
 			)}
-			<div className="flex items-center justify-center gap-1">
+			<div className="flex items-center justify-end gap-1 pr-2">
 				<Modal>
 					<Menus.Menu>
 						<Menus.Toggle id={id} />
