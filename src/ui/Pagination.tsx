@@ -1,11 +1,10 @@
 import { useSearchParams } from 'react-router'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { PAGE_SIZE } from '@/lib/constants'
 
 type PaginationProps = {
 	count: number
 }
-
-const PAGE_SIZE = 10
 
 export default function Pagination({ count }: PaginationProps) {
 	const [searchParams, setSearchParams] = useSearchParams()

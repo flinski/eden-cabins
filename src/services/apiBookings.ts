@@ -1,3 +1,4 @@
+import { PAGE_SIZE } from '@/lib/constants'
 import supabase from '@/services/supabase'
 
 export type CabinName = {
@@ -49,13 +50,15 @@ type BookingsSortBy = {
 type BookingsOptions = {
 	filter: BookingsFilter | null
 	sortBy: BookingsSortBy
+	page: number
 }
 
-export async function getBookings({ filter, sortBy }: BookingsOptions) {
+export async function getBookings({ filter, sortBy, page }: BookingsOptions) {
 	let query = supabase
 		.from('bookings')
 		.select(
-			'id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)'
+			'id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)',
+			{ count: 'exact' }
 		)
 
 	if (filter) {
@@ -67,7 +70,13 @@ export async function getBookings({ filter, sortBy }: BookingsOptions) {
 		query = query.order(sortBy.field, { ascending: sortBy.direction === 'asc' })
 	}
 
-	const { data, error } = await query
+	if (page) {
+		const from = (page - 1) * PAGE_SIZE
+		const to = from + PAGE_SIZE - 1
+		query = query.range(from, to)
+	}
+
+	const { data, error, count } = await query
 
 	if (error) {
 		console.error(error.message)
@@ -77,7 +86,7 @@ export async function getBookings({ filter, sortBy }: BookingsOptions) {
 	// @ts-expect-error no error
 	const bookings: Booking[] = data
 
-	return bookings
+	return { bookings, count }
 }
 
 export async function getBooking(id: string) {
