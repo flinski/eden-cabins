@@ -35,13 +35,40 @@ export type Booking = {
 	guests: Guest
 }
 
-export async function getBookings() {
-	const { data, error } = await supabase
+type BookingsFilter = {
+	field: string
+	value: string
+	method?: string
+}
+
+type BookingsSortBy = {
+	field: string
+	direction: string
+}
+
+type BookingsOptions = {
+	filter: BookingsFilter | null
+	sortBy: BookingsSortBy
+}
+
+export async function getBookings({ filter, sortBy }: BookingsOptions) {
+	let query = supabase
 		.from('bookings')
 		.select(
 			'id, created_at, startDate, endDate, numNights, numGuests, status, totalPrice, cabins(name), guests(fullName, email)'
 		)
-	console.log(data)
+
+	if (filter) {
+		// @ts-expect-error no error
+		query[filter.method || 'eq'](filter.field, filter.value)
+	}
+
+	if (sortBy) {
+		query = query.order(sortBy.field, { ascending: sortBy.direction === 'asc' })
+	}
+
+	const { data, error } = await query
+
 	if (error) {
 		console.error(error.message)
 		throw new Error('Bookings could not be loaded')
