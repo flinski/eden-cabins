@@ -87,6 +87,15 @@ function Body({ data, render }: BodyProps) {
 	return <section>{data.map(render)}</section>
 }
 
+type FooterProps = {
+	children: React.ReactNode
+}
+
+function Footer({ children }: FooterProps) {
+	return <footer>{children}</footer>
+}
+
 Table.Header = Header
 Table.Row = Row
 Table.Body = Body
+Table.Footer = Footer

@@ -4,6 +4,7 @@ import BookingRow from '@/features/bookings/BookingRow'
 import Menus from '@/ui/Menus'
 import Table from '@/ui/Table'
 import Spinner from '@/ui/Spinner'
+import Pagination from '@/ui/Pagination'
 
 export default function BookingTable() {
 	const { isLoading, error, bookings } = useBookings()
@@ -32,12 +33,17 @@ export default function BookingTable() {
 					<div>Amount</div>
 					<div></div>
 				</Table.Header>
+
 				{bookings && (
 					<Table.Body
 						data={bookings}
 						render={(booking) => <BookingRow key={booking.id} booking={booking as Booking} />}
 					/>
 				)}
+
+				<Table.Footer>
+					<Pagination count={5} />
+				</Table.Footer>
 			</Table>
 		</Menus>
 	)
