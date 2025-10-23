@@ -3,6 +3,7 @@ import { twMerge } from 'tailwind-merge'
 
 import type { CabinData } from '@/features/cabins/CreateCabinForm'
 import type { Cabin, NewCabin } from '@/services/apiCabins'
+import { formatDistance, parseISO } from 'date-fns'
 
 export function cn(...inputs: ClassValue[]) {
 	return twMerge(clsx(inputs))
@@ -31,4 +32,14 @@ export function cabinToCabinData(cabin: Cabin) {
 		description: cabin.description,
 		image: cabin.image,
 	}
+}
+
+export function isToday() {}
+
+export function formatDistanceFromNow(date: string) {
+	return formatDistance(parseISO(date), new Date(), {
+		addSuffix: true,
+	})
+		.replace('about', '')
+		.replace('in', 'In')
 }

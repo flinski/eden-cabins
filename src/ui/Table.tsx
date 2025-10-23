@@ -1,4 +1,5 @@
 import { cn } from '@/lib/utils'
+import type { Booking } from '@/services/apiBookings'
 import type { Cabin } from '@/services/apiCabins'
 import { createContext, useContext, type JSX } from 'react'
 
@@ -74,8 +75,8 @@ function Row({ children }: RowProps) {
 }
 
 type BodyProps = {
-	data: Cabin[]
-	render: (cabin: Cabin) => JSX.Element
+	data: Cabin[] | Booking[]
+	render: (item: Cabin | Booking) => JSX.Element
 }
 
 function Body({ data, render }: BodyProps) {

@@ -54,7 +54,7 @@ export default function CabinTable() {
 				{sortedCabins && (
 					<Table.Body
 						data={sortedCabins}
-						render={(cabin) => <CabinRow key={cabin.id} cabin={cabin} />}
+						render={(cabin) => <CabinRow key={cabin.id} cabin={cabin as Cabin} />}
 					/>
 				)}
 			</Table>
