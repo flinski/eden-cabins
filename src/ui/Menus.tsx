@@ -34,7 +34,7 @@ type MenusProps = {
 export default function Menus({ children }: MenusProps) {
 	const [openId, setOpenId] = useState('')
 	const [position, setPosition] = useState<{ x: number; y: number } | null>(null)
-
+	console.log('openId:', openId)
 	const open = setOpenId
 	const close = () => setOpenId('')
 
@@ -78,7 +78,8 @@ function Toggle({ id }: ToggleProps) {
 			x: window.innerWidth - rect.width - rect.x,
 			y: rect.y + rect.height + 8,
 		})
-
+		console.log('id:', id)
+		// console.log('openId:', openId)
 		if (openId === '' || openId !== id) {
 			open(id)
 		} else {

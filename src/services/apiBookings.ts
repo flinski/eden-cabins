@@ -1,6 +1,48 @@
 import { PAGE_SIZE } from '@/lib/constants'
 import supabase from '@/services/supabase'
 
+export type CabinDetail = {
+	id: string
+	created_at: string
+	name: string
+	maxCapacity: string
+	regularPrice: number
+	discount: number
+	description: string
+	image: string
+}
+
+export type GuestDetail = {
+	id: string
+	created_at: string
+	fullName: string
+	email: string
+	nationalId: string
+	nationality: string
+	countryFlag: string
+}
+
+export type BookingDetail = {
+	id: string
+	created_at: string
+	startDate: string
+	endDate: string
+	numNights: number
+	numGuests: number
+	cabinPrice: number
+	extrasPrice: number
+	totalPrice: number
+	status: 'unconfirmed' | 'checked-in' | 'checked-out'
+	hasBreakfast: boolean
+	isPaid: boolean
+	observations: string
+	cabinId: string
+	guestId: string
+
+	cabins: CabinDetail
+	guests: GuestDetail
+}
+
 export type CabinName = {
 	name: string
 }
@@ -101,7 +143,25 @@ export async function getBooking(id: string) {
 		throw new Error('Booking not found')
 	}
 
-	const booking: Booking = data
+	const booking: BookingDetail = data
+
+	return booking
+}
+
+type UpdateBooking = {
+	status: string
+	isPaid: boolean
+}
+
+export async function updateBooking(id: string, obj: UpdateBooking) {
+	const { data, error } = await supabase.from('bookings').update(obj).eq('id', id).select().single()
+
+	if (error) {
+		console.error(error.message)
+		throw new Error('Booking could not be updated')
+	}
+
+	const booking: BookingDetail = data
 
 	return booking
 }

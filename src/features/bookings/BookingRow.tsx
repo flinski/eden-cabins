@@ -1,9 +1,12 @@
+import { useNavigate } from 'react-router'
 import { format, isToday } from 'date-fns'
+import { Eye, Trash2, UserRoundCheck } from 'lucide-react'
 
-import { formatDistanceFromNow } from '@/lib/utils'
+import { formatCurrency, formatDistanceFromNow } from '@/lib/utils'
 import type { Booking } from '@/services/apiBookings'
 import Table from '@/ui/Table'
 import Tag from '@/ui/Tag'
+import Menus from '@/ui/Menus'
 
 type BookingRowProps = {
 	booking: Booking
@@ -11,6 +14,7 @@ type BookingRowProps = {
 
 export default function BookingRow({
 	booking: {
+		id: bookingId,
 		startDate,
 		endDate,
 		numNights,
@@ -20,6 +24,8 @@ export default function BookingRow({
 		cabins: { name: cabinName },
 	},
 }: BookingRowProps) {
+	const navigate = useNavigate()
+
 	const statusToTagName = {
 		unconfirmed: 'blue',
 		'checked-in': 'green',
@@ -48,7 +54,27 @@ export default function BookingRow({
 
 			<Tag type={statusToTagName[status]}>{status.replace('-', ' ')}</Tag>
 
-			<div>{totalPrice}</div>
+			<div className="">{formatCurrency(totalPrice)}</div>
+
+			<Menus.Menu>
+				<Menus.Toggle id={bookingId} />
+
+				<Menus.List id={bookingId}>
+					<Menus.Button icon={Eye} onClick={() => navigate(`/bookings/${bookingId}`)}>
+						See details
+					</Menus.Button>
+
+					{status === 'unconfirmed' && (
+						<Menus.Button icon={UserRoundCheck} onClick={() => navigate(`/checkin/${bookingId}`)}>
+							Check in
+						</Menus.Button>
+					)}
+
+					<Menus.Button icon={Trash2} onClick={() => 1}>
+						Delete booking
+					</Menus.Button>
+				</Menus.List>
+			</Menus.Menu>
 		</Table.Row>
 	)
 }
