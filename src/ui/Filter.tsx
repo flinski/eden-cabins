@@ -34,6 +34,9 @@ export default function Filter({ filterField, options }: FilterProps) {
 
 	const handleClick = (urlValue: string) => {
 		searchParams.set(filterField, urlValue)
+		if (searchParams.get('page')) {
+			searchParams.set('page', '1')
+		}
 		setSearchParams(searchParams)
 	}
 

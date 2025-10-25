@@ -150,7 +150,7 @@ export async function getBooking(id: string) {
 
 type UpdateBooking = {
 	status: string
-	isPaid: boolean
+	isPaid?: boolean
 }
 
 export async function updateBooking(id: string, obj: UpdateBooking) {

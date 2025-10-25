@@ -125,10 +125,11 @@ function List({ children, id }: ListProps) {
 type ButtonProps = {
 	children: React.ReactNode
 	icon: ForwardRefExoticComponent<Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>>
+	disabled?: boolean
 	onClick?: () => void
 }
 
-function Button({ children, icon, onClick }: ButtonProps) {
+function Button({ children, icon, disabled, onClick }: ButtonProps) {
 	const { close } = useMenus()
 	const Icon = icon
 
@@ -140,6 +141,7 @@ function Button({ children, icon, onClick }: ButtonProps) {
 	return (
 		<li className="flex items-center">
 			<button
+				disabled={disabled}
 				onClick={handleClick}
 				className="hover:bg-ui-100 text-ui-600 hover:text-ui-950 flex w-full cursor-pointer items-center gap-2 rounded-sm px-3 py-2"
 			>

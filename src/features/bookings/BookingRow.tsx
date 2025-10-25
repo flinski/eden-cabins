@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router'
 import { format, isToday } from 'date-fns'
-import { Eye, Trash2, UserRoundCheck } from 'lucide-react'
+import { Eye, Trash2, UserRoundMinus, UserRoundPlus } from 'lucide-react'
 
 import { formatCurrency, formatDistanceFromNow } from '@/lib/utils'
 import type { Booking } from '@/services/apiBookings'
+import { useCheckout } from '@/features/check-in-out/useCheckout'
 import Table from '@/ui/Table'
 import Tag from '@/ui/Tag'
 import Menus from '@/ui/Menus'
@@ -25,6 +26,7 @@ export default function BookingRow({
 	},
 }: BookingRowProps) {
 	const navigate = useNavigate()
+	const { checkout, isCheckingOut } = useCheckout()
 
 	const statusToTagName = {
 		unconfirmed: 'blue',
@@ -65,8 +67,18 @@ export default function BookingRow({
 					</Menus.Button>
 
 					{status === 'unconfirmed' && (
-						<Menus.Button icon={UserRoundCheck} onClick={() => navigate(`/checkin/${bookingId}`)}>
+						<Menus.Button icon={UserRoundPlus} onClick={() => navigate(`/checkin/${bookingId}`)}>
 							Check in
+						</Menus.Button>
+					)}
+
+					{status === 'checked-in' && (
+						<Menus.Button
+							icon={UserRoundMinus}
+							disabled={isCheckingOut}
+							onClick={() => checkout(bookingId)}
+						>
+							Check out
 						</Menus.Button>
 					)}
 
