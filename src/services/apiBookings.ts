@@ -165,3 +165,12 @@ export async function updateBooking(id: string, obj: UpdateBooking) {
 
 	return booking
 }
+
+export async function deleteBooking(id: string) {
+	const { error } = await supabase.from('bookings').delete().eq('id', id)
+
+	if (error) {
+		console.error(error.message)
+		throw new Error('Booking could not be deleted')
+	}
+}

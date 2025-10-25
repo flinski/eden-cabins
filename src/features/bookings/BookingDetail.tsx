@@ -3,15 +3,19 @@ import { useNavigate } from 'react-router'
 import { useMoveBack } from '@/hooks/useMoveBack'
 import { useBooking } from '@/features/bookings/useBooking'
 import BookingDataBox from '@/features/bookings/BookingDataBox'
+import { useDeleteBooking } from '@/features/bookings/useDeleteBooking'
+import { useCheckout } from '@/features/check-in-out/useCheckout'
 import Tag from '@/ui/Tag'
 import Spinner from '@/ui/Spinner'
-import { useCheckout } from '@/features/check-in-out/useCheckout'
+import Modal from '@/ui/Modal'
+import ConfirmDelete from '@/ui/ConfirmDelete'
 
 export default function BookingDetail() {
 	const navigate = useNavigate()
 	const moveBack = useMoveBack()
 	const { isLoading, error, booking } = useBooking()
 	const { isCheckingOut, checkout } = useCheckout()
+	const { isDeleting, deleteBooking } = useDeleteBooking()
 	const status = booking?.status ?? 'unconfirmed'
 
 	if (isLoading) {
@@ -66,9 +70,32 @@ export default function BookingDetail() {
 					</button>
 				)}
 
+				<Modal>
+					<Modal.Open opens="delete">
+						<button
+							disabled={isCheckingOut}
+							className="bg-ui-50 border-ui-200 hover:text-ui-50 cursor-pointer self-end rounded-md border px-3 py-2 hover:bg-red-600"
+						>
+							Delete booking
+						</button>
+					</Modal.Open>
+
+					<Modal.Window name="delete">
+						<ConfirmDelete
+							resourceName="booking"
+							disabled={isDeleting}
+							onConfirm={() =>
+								deleteBooking(booking.id, {
+									onSettled: () => moveBack(),
+								})
+							}
+						/>
+					</Modal.Window>
+				</Modal>
+
 				<button
 					onClick={moveBack}
-					className="bg-ui-50 border-ui-200 hover:bg-accent-600 hover:text-ui-50 cursor-pointer self-end rounded-md border px-3 py-2"
+					className="bg-ui-50 border-ui-200 hover:text-ui-50 cursor-pointer self-end rounded-md border px-3 py-2 hover:bg-blue-600"
 				>
 					Back
 				</button>
