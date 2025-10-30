@@ -10,7 +10,6 @@ import Bookings from '@/pages/Bookings'
 import Cabins from '@/pages/Cabins'
 import Users from '@/pages/Users'
 import Settings from '@/pages/Settings'
-import Account from '@/pages/Account'
 import Login from '@/pages/Login'
 import PageNotFound from '@/pages/PageNotFound'
 import Booking from '@/pages/Booking'
@@ -21,7 +20,7 @@ const queryClient = new QueryClient()
 
 export default function App() {
 	return (
-		<div className="leading-text font-inter text-ui-950 bg-ui-100 min-h-full overflow-hidden font-medium antialiased">
+		<div className="leading-text font-inter text-ui-950 bg-ui-100 selection:bg-accent-600 selection:text-ui-50 min-h-full overflow-hidden font-medium antialiased">
 			<QueryClientProvider client={queryClient}>
 				<BrowserRouter>
 					<Routes>
@@ -40,7 +39,6 @@ export default function App() {
 							<Route path="cabins" element={<Cabins />} />
 							<Route path="users" element={<Users />} />
 							<Route path="settings" element={<Settings />} />
-							<Route path="account" element={<Account />} />
 						</Route>
 						<Route path="login" element={<Login />} />
 						<Route path="*" element={<PageNotFound />} />

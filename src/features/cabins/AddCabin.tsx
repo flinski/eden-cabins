@@ -5,7 +5,7 @@ export default function AddCabin() {
 	return (
 		<Modal>
 			<Modal.Open opens="cabin-form">
-				<button className="bg-ui-50 border-ui-200 hover:bg-accent-100 hover:text-accent-700 hover:border-accent-200 cursor-pointer self-end rounded-md border px-3 py-2">
+				<button className="bg-accent-600 text-ui-50 hover:bg-accent-700 cursor-pointer self-end rounded-md px-3 py-2">
 					Add new cabin
 				</button>
 			</Modal.Open>
@@ -15,23 +15,3 @@ export default function AddCabin() {
 		</Modal>
 	)
 }
-
-// export default function AddCabin() {
-// 	const [isOpenModal, setIsOpenModal] = useState(false)
-
-// 	return (
-// 		<div>
-// 			<button
-// 				onClick={() => setIsOpenModal(!isOpenModal)}
-// 				className="bg-ui-50 border-ui-200 hover:bg-accent-100 hover:text-accent-700 hover:border-accent-200 cursor-pointer self-end rounded-md border px-3 py-2"
-// 			>
-// 				Add new cabin
-// 			</button>
-// 			{isOpenModal && (
-// 				<Modal onClose={() => setIsOpenModal(false)}>
-// 					<CreateCabinForm onCloseModal={() => setIsOpenModal(false)} />
-// 				</Modal>
-// 			)}
-// 		</div>
-// 	)
-// }

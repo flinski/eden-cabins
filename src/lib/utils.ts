@@ -44,6 +44,18 @@ export function formatDistanceFromNow(date: string) {
 		.replace('in', 'In')
 }
 
+export function getToday(options?: { end: boolean }) {
+	const today = new Date()
+
+	if (options?.end) {
+		today.setUTCHours(23, 59, 59, 999)
+	} else {
+		today.setUTCHours(0, 0, 0, 0)
+	}
+
+	return today.toISOString()
+}
+
 export function subtractDates(date1: string, date2: string) {
 	return differenceInDays(parseISO(String(date1)), parseISO(String(date2)))
 }

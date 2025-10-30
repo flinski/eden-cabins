@@ -153,13 +153,13 @@ export default function CreateCabinForm({ cabinToEdit, onCloseModal }: CreateCab
 					type="reset"
 					disabled={isCreatingOrEditing}
 					onClick={() => onCloseModal?.()}
-					className="bg-ui-200 cursor-pointer rounded-md px-3 py-2 disabled:cursor-default disabled:opacity-50"
+					className="border-ui-200 hover:bg-ui-100 cursor-pointer rounded-md border bg-transparent px-3 py-2 disabled:cursor-default disabled:opacity-50"
 				>
 					Cancel
 				</button>
 				<button
 					disabled={isCreatingOrEditing}
-					className="bg-ui-200 cursor-pointer rounded-md px-3 py-2 disabled:cursor-default disabled:opacity-50"
+					className="bg-accent-600 text-ui-50 hover:bg-accent-700 cursor-pointer rounded-md px-3 py-2 disabled:cursor-default disabled:opacity-50"
 				>
 					{isEditSession ? 'Edit cabin' : 'Create new cabin'}
 				</button>

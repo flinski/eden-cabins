@@ -1,4 +1,5 @@
 import { PAGE_SIZE } from '@/lib/constants'
+import { getToday } from '@/lib/utils'
 import supabase from '@/services/supabase'
 
 export type CabinDetail = {
@@ -76,6 +77,12 @@ export type Booking = {
 
 	cabins: CabinName
 	guests: Guest
+}
+
+export type BookingShort = {
+	created_at: string
+	totalPrice: number
+	extrasPrice: number
 }
 
 type BookingsFilter = {
@@ -173,4 +180,57 @@ export async function deleteBooking(id: string) {
 		console.error(error.message)
 		throw new Error('Booking could not be deleted')
 	}
+}
+
+export async function getBookingsAfterDate(date: string) {
+	const { data, error } = await supabase
+		.from('bookings')
+		.select('created_at, totalPrice, extrasPrice')
+		.gte('created_at', date)
+		.lte('created_at', getToday({ end: true }))
+
+	if (error) {
+		console.error(error.message)
+		throw new Error('Bookings could not get loaded')
+	}
+
+	const bookings: BookingShort[] = data
+
+	return bookings
+}
+
+export async function getStaysAfterDate(date: string) {
+	const { data, error } = await supabase
+		.from('bookings')
+		.select('*, guests(fullName)')
+		.gte('startDate', date)
+		.lte('startDate', getToday())
+
+	if (error) {
+		console.error(error.message)
+		throw new Error('Bookings could not get loaded')
+	}
+
+	const stays: BookingDetail[] = data
+
+	return stays
+}
+
+export async function getStaysTodayActivity() {
+	const { data, error } = await supabase
+		.from('bookings')
+		.select('*, guests(fullName, nationality, countryFlag)')
+		.or(
+			`and(status.eq.unconfirmed,startDate.eq.${getToday()}),and(status.eq.checked-in,endDate.eq.${getToday()})`
+		)
+		.order('created_at')
+
+	if (error) {
+		console.error(error.message)
+		throw new Error('Bookings could not get loaded')
+	}
+
+	const stays: BookingDetail[] = data
+
+	return stays
 }
