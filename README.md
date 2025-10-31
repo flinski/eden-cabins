@@ -40,3 +40,8 @@
 ## Демо
 
 ⛅ [Eden Cabins](https://eden-cabins.vercel.app/)
+
+## Вход в систему:
+
+- Логин: user@example.com
+- Пароль: 12345678
