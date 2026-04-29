@@ -4,8 +4,8 @@ import { useState, type ChangeEvent, type FormEvent } from 'react'
 import { useLogin } from './useLogin'
 
 export default function LoginForm() {
-	const [email, setEmail] = useState('john@example.com')
-	const [password, setPassword] = useState('pass1234')
+	const [email, setEmail] = useState('user@example.com')
+	const [password, setPassword] = useState('12345678')
 	const { isLogining, login } = useLogin()
 
 	const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
