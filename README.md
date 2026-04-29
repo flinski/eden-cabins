@@ -1,5 +1,10 @@
 # 🏡 [Eden Cabins](https://eden-cabins.vercel.app/)
 
+## Вход в систему:
+
+- Логин: user@example.com
+- Пароль: 12345678
+
 **Eden Cabins** — это административная панель для сотрудников компании, предназначенная для управления бронированиями и домиками для проживания.
 
 <img width="1886" height="1066" alt="image" src="https://github.com/user-attachments/assets/3987ff77-45eb-4b46-bf03-dc191e9c2cbd" />
@@ -40,8 +45,3 @@
 ## Демо
 
 ⛅ [Eden Cabins](https://eden-cabins.vercel.app/)
-
-## Вход в систему:
-
-- Логин: user@example.com
-- Пароль: 12345678
